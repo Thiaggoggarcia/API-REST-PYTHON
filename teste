@@ -1,0 +1,16 @@
+import pyaudio  
+import numpy as np  
+
+# Gerar ruído branco (simula som de chuva)
+volume = 0.4  
+fs = 44100  # Taxa de amostragem
+duration = 20  # Duração em segundos
+samples = (np.random.rand(int(fs * duration)) * 2 - 1).astype(np.float32)
+
+# Iniciar áudio
+p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.paFloat32, channels=1, rate=fs, output=True)
+stream.write(volume * samples)
+stream.stop_stream()
+stream.close()
+p.terminate()
