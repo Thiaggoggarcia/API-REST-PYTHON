@@ -12,7 +12,7 @@ def create_tasks():
     new_task = Task(id=task_id_control ,title=data["title"], description=data.get("description",""))
     tasks.append(new_task)
     task_id_control += 1
-    return jsonify({"Mensagem": "Nova tarefa criada com sucesso!"})
+    return jsonify({"Mensagem": "Nova tarefa criada com sucesso!", "id":new_task.id})
 
 
 @app.route("/tasks", methods=['GET'])
