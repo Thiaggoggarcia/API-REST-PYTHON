@@ -1,4 +1,4 @@
-import pytest
+#import pytest
 import requests
 
 BASE_URL = 'http://127.0.0.1:5001'
@@ -47,8 +47,7 @@ def test_delete_task():
   
     resposta = requests.delete(f"{BASE_URL}/tasks/{tasks[0]}")
     resposta.status_code == 200
-    print("taskssssssssssss ",tasks,len(tasks))
-    
+        
     resposta2 = requests.get(f"{BASE_URL}/tasks/{tasks[0]}")
     assert resposta2.status_code == 404
    
