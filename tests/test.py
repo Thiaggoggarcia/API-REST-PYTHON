@@ -25,12 +25,31 @@ def test_get_task():
     assert "total_tasks" in resposta_json
 
 def test_get_task_unique():
-    if tasks:
-        task_id = tasks[0]
-        resposta = requests.get(f"{BASE_URL}/tasks/{task_id}")
-        #assert resposta.status_code == 200
+    for task in tasks:
+        resposta = requests.get(f"{BASE_URL}/tasks/{task}")
         resposta_json = resposta.json()
-        assert task_id == resposta_json['id']
+        assert resposta.status_code == 200
+        assert task == resposta_json['id']
 
 def test_updade_task():
-    pass
+    update_task = {
+        'title': 'Atualizando Atividade',
+        'description': 'Atualizando Atividade já Cadastrada!',
+        'completed': True
+        
+    }
+    task_id = tasks[0]
+    resposta = requests.put(f"{BASE_URL}/tasks/{task_id}",json=update_task)
+    assert resposta.status_code == 200
+    assert 'Mensagem' in resposta.json()
+    
+def test_delete_task():
+  
+    resposta = requests.delete(f"{BASE_URL}/tasks/{tasks[0]}")
+    resposta.status_code == 200
+    print("taskssssssssssss ",tasks,len(tasks))
+    
+    resposta2 = requests.get(f"{BASE_URL}/tasks/{tasks[0]}")
+    assert resposta2.status_code == 404
+   
+    

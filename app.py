@@ -34,7 +34,7 @@ def get_id_task(id_task):
         if task.id == id_task:
             return task.to_dict()
 
-        return jsonify({"Mensagem": "Atividade Não encontrada!"}), 404
+    return jsonify({"Mensagem": "Atividade Não encontrada!"}), 404
     
 @app.route("/tasks/<int:taskId>", methods=['PUT'])
 def update_task(taskId):
@@ -42,7 +42,6 @@ def update_task(taskId):
         return jsonify({'Mensagem': 'Não Existem Atividades Cadastradas!'}), 404
     
     for task in tasks:
-        print(task.id,type(task.id))
         if task.id == taskId:
             data = request.get_json()
             task.title = data['title']
@@ -50,7 +49,7 @@ def update_task(taskId):
             task.completed = data['completed']
             return jsonify({'Mensagem': 'Atividade Atualizada com Sucesso!'})
         
-        return jsonify({"Mensagem": "Atividade Não encontrada!"}), 404
+    return jsonify({"Mensagem": "Atividade Não encontrada!"}), 404
             
 @app.route("/tasks/<int:id_task>", methods=['DELETE'])
 def delete_task(id_task):
@@ -59,7 +58,6 @@ def delete_task(id_task):
     
     for task in tasks:
         if task.id == id_task:
-            print(task)
             tasks.remove(task)
             return jsonify({"Mensagem": "Atividade Deletada com Sucesso!"})
         
